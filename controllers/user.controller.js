@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) =>{
     try{
@@ -30,8 +31,33 @@ exports.register = async (req, res) =>{
 
 exports.login = async (req, res) => {
     try {
-        // כאן בהמשך נוסיף אימות ובדיקת טוקן
-        res.status(200).json({ message: 'User logged in (placeholder)' });
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+        if(!user){
+            return res.status(401).json({ error: { message: 'Invalid email or password'}});
+        }
+
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
+        if(!isPasswordMatch){
+            return res.status(401).json({ error: { message: 'Invalid email or password' } });
+        }
+
+        const token = jwt.sign(
+            { userId: user._id,role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h'}
+        );
+    
+        res.status(200).json({ 
+            message: 'Login successful',
+            token: token,
+            user: {
+                username: user.username,
+                email: user.email,
+                role: user.role
+            }
+         });
     } catch (error) {
         res.status(500).json({ error: { message: error.message } });
     }
