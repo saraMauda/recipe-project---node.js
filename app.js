@@ -13,6 +13,9 @@ app.use(express.json());
 const userRoute = require('./routes/user.route');
 app.use('/api/users', userRoute);
 
+const recipeRoutes = require('./routes/recipe.route');
+app.use('/api/recipes', recipeRoutes);
+
 const PORT = process.env.PORT || 3005;
 
 mongoose.connect(process.env.MONGO_URI)

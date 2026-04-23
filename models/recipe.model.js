@@ -7,7 +7,7 @@ const layerScheme = new mongoose.Schema({
 });
 
 const recipeSchema = new mongoose.Schema({
-    name: {type:String, require:true},
+    name: {type:String, required:true},
     description: String,
     category: {type:String ,required:true},
     prepTime: {type:Number, required:true},
