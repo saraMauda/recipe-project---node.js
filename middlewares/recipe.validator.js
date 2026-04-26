@@ -20,7 +20,6 @@ const recipeSchema = Joi.object({
 exports.validateRecipe = (req, res, next) => {
     const { error } = recipeSchema.validate(req.body, { abortEarly: false });
     if (error) {
-        // אנחנו משתמשים ב-next עם שגיאה כדי שה-ErrorHandler המרכזי יטפל בזה
         const validationError = new Error(error.details.map(d => d.message).join(', '));
         validationError.statusCode = 400;
         return next(validationError);
