@@ -48,11 +48,3 @@
 | `POST` | `/api/recipes` | יצירת מתכון חדש | ✅ |
 | `PUT` | `/api/recipes/:id` | עדכון מתכון קיים (לבעל המתכון בלבד) | ✅ |
 | `DELETE` | `/api/recipes/:id` | מחיקת מתכון (לבעל המתכון בלבד) | ✅ |
-
----
-
-## 💻 התקנה והרצה מקומית
-
-1. בצעו Clone לפרויקט:
-   ```bash
-   git clone <your-repository-url>
